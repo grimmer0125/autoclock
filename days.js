@@ -55,15 +55,16 @@ const adjusted2017Workdays = [
   "2017-09-30"
 ];
 
-function addAdjustedWorkdays(dates) {
+//TODO fill manually now. only add when these days are between start and end dates, 
+function addAdjustedWorkdays(dates, start, end) {
 
-  for (const day of adjusted2017Workdays) {
-    dates.push(day);
-  }
-
-  for (const day of adjusted2018Workdays) {
-    dates.push(day);
-  }
+  // for (const day of adjusted2017Workdays) {
+  //   dates.push(day);
+  // }
+  //
+  // for (const day of adjusted2018Workdays) {
+  //   dates.push(day);
+  // }
 }
 
 function checkIfHolidayOrLeave(date) {
@@ -137,7 +138,7 @@ function getDays(startDate, endDate) {
         }
     }
 
-    addAdjustedWorkdays(dates);
+    // addAdjustedWorkdays(dates);
 
     return dates;
 };

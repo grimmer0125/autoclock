@@ -11,7 +11,12 @@ const password = jsonContent.password;
 
 console.log("user:", user);
 
-let dateArray = ["2018-01-23", "2018-01-24"];
+const dayCal = require("./days");
+// console.log(dayCal);
+
+// let dateArray = ["2018-01-23", "2018-01-24"];
+let dateArray = dayCal.getDays("2017-11-29","2017-11-30");
+
 const clockInTime = "09:00";
 const clockOutTime = "18:00";
 const url = 'https://www.asiaa.sinica.edu.tw/internal_site/personnel_system/WorkHour.php';
@@ -20,6 +25,7 @@ const url = 'https://www.asiaa.sinica.edu.tw/internal_site/personnel_system/Work
 let page = nightmare.authentication(user, password).goto(url);
 
 for (const date of dateArray) {
+  console.log("fill date:", date);
   page = page
   .type('input#d', "")
   .type('input#d', date)
