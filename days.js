@@ -4,58 +4,8 @@
 // x 3. ignore 國定 holiday, 2017, 2018
 // x 4. ignore self holiday
 
-//TODO fill the remaining holidays
-const year2018holidays = [
-  "2018-01-01"
-];
 
-// ignore Jan ~ March
-const year2017holidays = [
-  "2017-04-03",
-  "2017-04-04",
-  "2017-05-01",
-  "2017-05-29",
-  "2017-05-30",
-  "2017-10-04", //	Wed Moon Festival
-  "2017-10-09",
-  "2017-10-10"
-];
-
-
-//TODO: customize your leaves
-const year2018leaves = [
-  // 2018-01-05	Fri			09:00~12:00 Personal Leave
-  "2018-01-10", //sick
-  "2018-01-15"
-];
-
-//TODO: customize your leaves
-const year2017leaves = [
-  "2017-11-28", //sick
-  "2017-12-08",
-  "2017-12-11",
-  "2017-12-12",
-  "2017-12-13",
-  "2017-12-14",
-  "2017-12-15",
-  "2017-12-18",
-  "2017-12-19",
-  "2017-12-20",
-  "2017-12-21",
-  "2017-12-22"
-];
-
-//TODO fill the remaining adjustedWorkdays
-const adjusted2018Workdays = [
-
-];
-
-const adjusted2017Workdays = [
-  "2017-06-03",
-  "2017-09-30"
-];
-
-//TODO fill manually now. only add when these days are between start and end dates, 
+//TODO fill manually now. only add when these days are between start and end dates,
 function addAdjustedWorkdays(dates, start, end) {
 
   // for (const day of adjusted2017Workdays) {
@@ -67,7 +17,17 @@ function addAdjustedWorkdays(dates, start, end) {
   // }
 }
 
-function checkIfHolidayOrLeave(date) {
+function checkIfHolidayOrLeave(date, data) {
+
+  const {
+    year2018holidays,
+    year2017holidays,
+    year2018leaves,
+    year2017leaves,
+    adjusted2018Workdays,
+    adjusted2017Workdays
+  } = data;
+
   for (const holiday of year2018holidays) {
     if (date === holiday) {
       return true;
@@ -104,43 +64,43 @@ const moment = require('moment');
 // 2017-12-31T16:00:00.000+01:00 -> UTC +1
 
 // https://stackoverflow.com/a/23796069/7354486
-function getDays(startDate, endDate) {
-    const dates = [];
+function getDays(startDate, endDate, data) {
+  const dates = [];
 
-    let currDate = moment(startDate).startOf('day'); //use current timezone
-    let lastDate = moment(endDate).startOf('day');
-    currDate.add(-1, 'days');
+  let currDate = moment(startDate).startOf('day'); //use current timezone
+  let lastDate = moment(endDate).startOf('day');
+  currDate.add(-1, 'days');
 
-    // lastDate.add(1, 'days');
-    console.log(currDate.toDate()); //1231
-    console.log(lastDate.toDate()); //0130
-    console.log("xx");
-    while(currDate.add(1, 'days').diff(lastDate) <= 0) {
+  // lastDate.add(1, 'days');
+  console.log(currDate.toDate()); //1231
+  console.log(lastDate.toDate()); //0130
+  console.log("xx");
+  while (currDate.add(1, 'days').diff(lastDate) <= 0) {
 
-        // console.log(currDate.toDate()); //print iso8601 format
-        // console.log(currDate.toDate().getDate()); //current time zone, "d" part
+    // console.log(currDate.toDate()); print iso8601 format
+    // console.log(currDate.toDate().getDate()); current time zone, "d" part
 
-        // isoWeekday uses currentTimeZone
-        if (currDate.isoWeekday() !== 6 && currDate.isoWeekday() !== 7) {
-          // console.log("is weekday");
-          const date = currDate.format('YYYY-MM-DD');
-          // dates.push(currDate.clone().toDate());
+    // isoWeekday uses currentTimeZone
+    if (currDate.isoWeekday() !== 6 && currDate.isoWeekday() !== 7) {
+      // console.log("is weekday");
+      const date = currDate.format('YYYY-MM-DD');
+      // dates.push(currDate.clone().toDate());
 
-          if(!checkIfHolidayOrLeave(date)) {
-            console.log(date); //current time zone
-            dates.push(date);
-          } else {
-            console.log("holiday or leave");
-          }
+      if (!checkIfHolidayOrLeave(date, data)) {
+        console.log(date); //current time zone
+        dates.push(date);
+      } else {
+        console.log("holiday or leave");
+      }
 
-        } else {
-          console.log("weekend");
-        }
+    } else {
+      console.log("weekend");
     }
+  }
 
-    // addAdjustedWorkdays(dates);
+  // addAdjustedWorkdays(dates);
 
-    return dates;
+  return dates;
 };
 
 module.exports = {

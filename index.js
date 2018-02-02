@@ -9,13 +9,15 @@ const jsonContent = JSON.parse(content);
 const user = jsonContent.user;
 const password = jsonContent.password;
 
+const { startDate, endDate, data } = jsonContent;
+
 console.log("user:", user);
 
 const dayCal = require("./days");
 // console.log(dayCal);
 
 // let dateArray = ["2018-01-23", "2018-01-24"];
-let dateArray = dayCal.getDays("2017-03-01","2017-04-30");
+let dateArray = dayCal.getDays(startDate, endDate, data);
 
 const clockInTime = "09:00";
 const clockOutTime = "18:00";
