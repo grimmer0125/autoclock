@@ -17,9 +17,9 @@
 ## Notes:
 1. ~do not disturb the automated browser~
 2. asiaa clock allow duplicate record.
-3. you can try to setup `Nightmare({ show: true });` to let the automated browsr visible to debug.
+3. you can try to setup `Nightmare({ show: true });` to let the automated browser visible to debug.
 
 ## issues:
 https://github.com/grimmer0125/autoclock/issues/1
 
-Sometimes it may timeout/throw error due to wired asiaa server/network, then this script stops. Please check the result on the clock home page after the script is finished or terminated. If the record is not completed, you need to adjust the startDate to restart again.
+Sometimes it may timeout/throw error due to wired asiaa server/network, then this script stops. Please check the result on the clock home page after the script is finished or terminated. If the record is not completed or something wrong (I can not guarantee 100% correct, there might be some bug), you need to adjust the startDate to restart again, or even delete wrong record first. 
