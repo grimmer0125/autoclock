@@ -1,3 +1,5 @@
+const notifier = require('node-notifier');
+
 const Nightmare = require('nightmare');
 
 // const nightmare = Nightmare({ show: true, typeInterval: 20, openDevTools:true });
@@ -37,13 +39,13 @@ for (const date of dateArray) {
   .type('input#t', "")
   .type('input#t', clockInTime)
   .click('input#bt_in')
-  .wait(2000)
+  .wait(2100)
   .type('input#d', "")
   .type('input#d', date)
   .type('input#t', "")
   .type('input#t', clockOutTime)
   .click('input#bt_out')
-  .wait(2000)
+  .wait(2100)
   .evaluate((text) => {
       console.log("end write date:"+ text)
   }, date)
@@ -51,7 +53,11 @@ for (const date of dateArray) {
 
 page
 .end()
-.then(()=>console.log("finished !!!!!"))
+.then(()=> {
+  console.log("auto clock is finished !!!!!");
+  notifier.notify('auto clock is finished !!')
+})
 .catch((error) => {
-    console.error('auto clock failed:', error);
+    console.error('auto clock failure:', error);
+    notifier.notify('auto clock failure: !!' + error)
 });
