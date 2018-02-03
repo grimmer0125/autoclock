@@ -1,9 +1,9 @@
 //import Nightmare from 'nightmare';
 const Nightmare = require('nightmare');
 
-const nightmare = Nightmare({ show: true });
+const nightmare = Nightmare({ show: true, typeInterval: 20 });
 
-var fs = require("fs");
+const fs = require("fs");
 const content = fs.readFileSync("config.json");
 const jsonContent = JSON.parse(content);
 const user = jsonContent.user;
@@ -28,8 +28,8 @@ let page = nightmare.authentication(user, password).goto(url);
 
 for (const date of dateArray) {
   // console.log("fill date:", date);
-
-  page = page
+  // console.log("1:", date);
+  page
   .type('input#d', "")
   .type('input#d', date)
   .type('input#t', "")
@@ -42,7 +42,10 @@ for (const date of dateArray) {
   .type('input#t', clockOutTime)
   .click('input#bt_out')
   .wait(1500);
+  // console.log("2:", date);
+
 }
+// console.log("3");
 
 page
 .end()
@@ -50,3 +53,4 @@ page
 .catch((error) => {
     console.error('auto clock failed:', error);
 });
+// console.log("4");
