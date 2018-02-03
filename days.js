@@ -101,7 +101,7 @@ function getDays(startDate, endDate, data) {
   const end = lastDate.toDate();
   console.log(start); //1231
   console.log(end); //0130
-  console.log("start add dates betwen these two");
+  console.log("start add dates betwen these two (Z refers UTC+0)");
 
   currDate.add(-1, 'days');
   while (currDate.add(1, 'days').diff(lastDate) <= 0) {
@@ -116,14 +116,17 @@ function getDays(startDate, endDate, data) {
       // dates.push(currDate.clone().toDate());
 
       if (!checkIfHolidayOrLeave(date, data)) {
-        console.log(date); //current time zone
+        // Debugging:
+        // console.log(date); //current time zone
         dates.push(date);
       } else {
-        console.log("holiday or leave");
+        // Debugging:
+        // console.log("holiday or leave");
       }
 
     } else {
-      console.log("weekend");
+      // Debugging:
+      // console.log("weekend");
     }
   }
 

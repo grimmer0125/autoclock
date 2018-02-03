@@ -1,7 +1,7 @@
-//import Nightmare from 'nightmare';
 const Nightmare = require('nightmare');
 
-const nightmare = Nightmare({ show: true, typeInterval: 20 });
+// const nightmare = Nightmare({ show: true, typeInterval: 20, openDevTools:true });
+const nightmare = Nightmare({ show: false, typeInterval: 20 });
 
 const fs = require("fs");
 const content = fs.readFileSync("config.json");
@@ -14,9 +14,7 @@ const { startDate, endDate, data } = jsonContent;
 console.log("user:", user);
 
 const dayCal = require("./days");
-// console.log(dayCal);
 
-// let dateArray = ["2018-01-23", "2018-01-24"];
 let dateArray = dayCal.getDays(startDate, endDate, data);
 
 const clockInTime = "09:00";
@@ -25,32 +23,35 @@ const url = 'https://www.asiaa.sinica.edu.tw/internal_site/personnel_system/Work
 
 // sometimes it requires a lot time to open, even timeout
 let page = nightmare.authentication(user, password).goto(url);
+page.on('console', (type, message)=> console.log(message));
 
 for (const date of dateArray) {
   // console.log("fill date:", date);
-  // console.log("1:", date);
+
   page
+  .evaluate((text) => {
+      console.log("start write date:"+ text)
+  }, date)
   .type('input#d', "")
   .type('input#d', date)
   .type('input#t', "")
   .type('input#t', clockInTime)
   .click('input#bt_in')
-  .wait(1500)
+  .wait(1800)
   .type('input#d', "")
   .type('input#d', date)
   .type('input#t', "")
   .type('input#t', clockOutTime)
   .click('input#bt_out')
-  .wait(1500);
-  // console.log("2:", date);
-
+  .wait(1800)
+  .evaluate((text) => {
+      console.log("end write date:"+ text)
+  }, date)
 }
-// console.log("3");
 
 page
 .end()
-.then()
+.then(()=>console.log("finished !!!!!"))
 .catch((error) => {
     console.error('auto clock failed:', error);
 });
-// console.log("4");
