@@ -16,6 +16,6 @@
 
 ## Notes:
 1. ~do not disturb the automated browser~
-2. sometimes it may timeout/throw error due to wired asiaa server/network and please check your record and adjust the startDate to restart again. Also, you can global replace `1800` with `2200` to try again. ref: issue list, https://github.com/grimmer0125/autoclock/issues/1
+2. sometimes it may timeout/throw error due to wired asiaa server/network and please check your record and adjust the startDate to restart again. Also, you can global replace `2000` with `2300` to try again for better timing tolerance. ref: issue list, https://github.com/grimmer0125/autoclock/issues/1
 3. asiaa clock allow duplicate record.
 4. you can try to setup `Nightmare({ show: true });` to let the automated browsr visible to debug.
