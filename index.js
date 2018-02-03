@@ -25,14 +25,24 @@ const url = 'https://www.asiaa.sinica.edu.tw/internal_site/personnel_system/Work
 
 // sometimes it requires a lot time to open, even timeout
 let page = nightmare.authentication(user, password).goto(url);
-page.on('console', (type, message)=> console.log(message));
+
+let handlingDate = "";
+page.on('console', (type, message)=> {
+  console.log(message);
+  const strArray = message.split("::");
+  if (strArray.length>1) {
+    // this current scope: Node.js
+    // tricky way to get info. from browser
+    handlingDate = strArray[1];
+  }
+});
 
 for (const date of dateArray) {
   // console.log("fill date:", date);
 
   page
   .evaluate((text) => {
-      console.log("start write date:"+ text)
+      console.log("start write date::"+ text);
   }, date)
   .type('input#d', "")
   .type('input#d', date)
@@ -47,17 +57,17 @@ for (const date of dateArray) {
   .click('input#bt_out')
   .wait(2100)
   .evaluate((text) => {
-      console.log("end write date:"+ text)
+      console.log("end write date::"+ text)
   }, date)
 }
 
 page
 .end()
 .then(()=> {
-  console.log("auto clock is finished !!!!!");
-  notifier.notify('auto clock is finished !!')
+  console.log("auto clock is finished !!!!!, " + handlingDate);
+  notifier.notify('auto clock is finished:' + handlingDate +" !!");
 })
 .catch((error) => {
     console.error('auto clock failure:', error);
-    notifier.notify('auto clock failure: !!' + error)
+    notifier.notify('auto clock failure on:' + handlingDate +"!!error:" + error);
 });
