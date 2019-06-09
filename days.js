@@ -11,7 +11,12 @@ function addAdjustedWorkdays(dates, start, end, data) {
   // "2017-06-03",
   // "2017-09-30"
 
-  for (const day of data.adjusted2017Workdays) {
+  const {
+    adjusted2017Workdays,
+    adjusted2018Workdays
+  } = data;
+
+  for (const day of adjusted2017Workdays) {
     // day -> date
     const work = moment(day).startOf('day');
 
@@ -31,7 +36,7 @@ function addAdjustedWorkdays(dates, start, end, data) {
 //
   }
 
-  for (const day of data.adjusted2018Workdays) {
+  for (const day of adjusted2018Workdays) {
     const work = moment(day).startOf('day');
 
     if (start <= work && work <= end) {
@@ -47,8 +52,6 @@ function checkIfHolidayOrLeave(date, data) {
     year2017holidays,
     year2018leaves,
     year2017leaves,
-    adjusted2018Workdays,
-    adjusted2017Workdays
   } = data;
 
   for (const holiday of year2018holidays) {
