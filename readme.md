@@ -16,7 +16,7 @@
 
 ### Example to add 2019 holidays 
 
-Follow https://github.com/grimmer0125/autoclock/pull/5.
+Follow https://github.com/grimmer0125/autoclock/pull/5/commits/d09b71fc933a9459a60ecd3542a8a7bef8bd2d1f.
 
 
 ## Notes:
