@@ -14,6 +14,11 @@
 4. year2017leaves (customized data)
 3. year2018leaves (customized data)
 
+### Example to add 2019 holidays 
+
+Follow https://github.com/grimmer0125/autoclock/pull/5.
+
+
 ## Notes:
 1. ~do not disturb the automated browser~
 2. asiaa clock allow duplicate record.
