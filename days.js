@@ -13,7 +13,8 @@ function addAdjustedWorkdays(dates, start, end, data) {
 
   const {
     adjusted2017Workdays,
-    adjusted2018Workdays
+    adjusted2018Workdays,
+    adjusted2019Workdays
   } = data;
 
   for (const day of adjusted2017Workdays) {
@@ -43,16 +44,32 @@ function addAdjustedWorkdays(dates, start, end, data) {
       dates.push(day);
     }
   }
+
+  for (const day of adjusted2019Workdays) {
+    const work = moment(day).startOf('day');
+
+    if (start <= work && work <= end) {
+      dates.push(day);
+    }
+  }
 }
 
 function checkIfHolidayOrLeave(date, data) {
 
   const {
+    year2019holidays,
+    year2019leaves,
     year2018holidays,
     year2017holidays,
     year2018leaves,
     year2017leaves,
   } = data;
+
+  for (const holiday of year2019holidays) {
+    if (date === holiday) {
+      return true;
+    }
+  }
 
   for (const holiday of year2018holidays) {
     if (date === holiday) {
@@ -62,6 +79,12 @@ function checkIfHolidayOrLeave(date, data) {
 
   for (const holiday of year2017holidays) {
     if (date === holiday) {
+      return true;
+    }
+  }
+  
+  for (const leaveDay of year2019leaves) {
+    if (date === leaveDay) {
       return true;
     }
   }
